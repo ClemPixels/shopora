@@ -13,6 +13,8 @@ async function setupApiClient(): Promise<ReturnType<typeof defineOneEntry>> {
 
   const apiUrl = process.env.ONEENTRY_PROJECT_URL;
 
+  console.log('API URL:', apiUrl); // Log the API URL for debugging
+
   // Throw an error if the API URL is not defined
 
   if (!apiUrl) {
@@ -30,7 +32,7 @@ async function setupApiClient(): Promise<ReturnType<typeof defineOneEntry>> {
       // Create a new instance of the API client with the required configuration
 
       apiClient = defineOneEntry(apiUrl, {
-        token: process.env.ONENETRY_TOKEN, // Token for authentication
+        token: process.env.ONEENTRY_TOKEN, // Token for authentication
 
         langCode: 'en_US', // Language code for the API
 
