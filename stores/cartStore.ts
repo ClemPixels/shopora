@@ -1,32 +1,21 @@
-import { create } from 'zustand';
-
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 // Define CartItem interface
-
 interface CartItem {
   id: number;
-
   name: string;
-
   price: number;
-
   quantity: number;
-
   image: string;
 }
 
 // Define the Zustand store interface
-
 interface CartState {
   cart: CartItem[];
-
   addToCart: (item: CartItem) => void;
-
   updateQuantity: (id: number, quantity: number) => void;
-
   removeItem: (id: number) => void;
-
   clearCart: () => void;
 }
 
@@ -34,10 +23,8 @@ const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       cart: [],
-
       addToCart: (newItem: CartItem) => {
         const existingItem = get().cart.find((item) => item.id === newItem.id);
-
         if (existingItem) {
           set((state) => ({
             cart: state.cart.map((item) =>
@@ -52,23 +39,19 @@ const useCartStore = create<CartState>()(
           }));
         }
       },
-
       updateQuantity: (id: number, quantity: number) =>
         set((state) => ({
           cart: state.cart.map((item) =>
             item.id === id ? { ...item, quantity: Math.max(0, quantity) } : item
           ),
         })),
-
       removeItem: (id: number) =>
         set((state) => ({
           cart: state.cart.filter((item) => item.id !== id),
         })),
-
       clearCart: () => set({ cart: [] }),
     }),
-
-    { name: 'cart-storage' } // persist to localStorage
+    { name: "cart-storage" } // persist to localStorage
   )
 );
 
